@@ -28,10 +28,10 @@ jobs:
         run: pnpm run build  # 构建项目
 
       - name: Copy CNAME file
-        run: cp CNAME build/CNAME  # 将 CNAME 文件复制到构建目录
+        run: cp CNAME dist/CNAME  # 将 CNAME 文件复制到构建目录
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build  # 构建输出的目录
+          publish_dir: ./dist  # 构建输出的目录
