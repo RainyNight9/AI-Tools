@@ -18,11 +18,8 @@ jobs:
         with:
           node-version: '20'  # 使用 Node.js 20 版本
 
-      - name: Setup pnpm
-        # 使用 pnpm/action-setup 安装和配置 pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: '8'  # 可选，指定 pnpm 版本
+      - name: Install pnpm
+        run: npm install -g pnpm  # 全局安装 pnpm
 
       - name: Install dependencies
         run: pnpm install  # 使用 pnpm 安装依赖
