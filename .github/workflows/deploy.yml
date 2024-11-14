@@ -16,11 +16,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # 指定 Node.js 版本
-          cache: 'pnpm'       # 缓存 pnpm 依赖
+          node-version: '20'  # 使用 Node.js 20 版本
 
-      - name: Install pnpm
-        run: npm install -g pnpm  # 全局安装 pnpm
+      - name: Setup pnpm
+        # 使用 pnpm/action-setup 安装和配置 pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '8'  # 可选，指定 pnpm 版本
 
       - name: Install dependencies
         run: pnpm install  # 使用 pnpm 安装依赖
@@ -29,8 +31,7 @@ jobs:
         run: pnpm run build  # 构建项目
 
       - name: Copy CNAME file
-        # 将根目录的 CNAME 文件复制到构建目录
-        run: cp CNAME build/CNAME
+        run: cp CNAME build/CNAME  # 将 CNAME 文件复制到构建目录
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
