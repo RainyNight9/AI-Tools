@@ -1,0 +1,39 @@
+name: Deploy React App to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 监听 main 分支的推送事件
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # 检出代码
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # 指定 Node.js 版本
+          cache: 'pnpm'       # 缓存 pnpm 依赖
+
+      - name: Install pnpm
+        run: npm install -g pnpm  # 全局安装 pnpm
+
+      - name: Install dependencies
+        run: pnpm install  # 使用 pnpm 安装依赖
+
+      - name: Build project
+        run: pnpm run build  # 构建项目
+
+      - name: Copy CNAME file
+        # 将根目录的 CNAME 文件复制到构建目录
+        run: cp CNAME build/CNAME
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # 构建输出的目录
