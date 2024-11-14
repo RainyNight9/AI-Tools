@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # 指定 Node.js 版本
+          node-version: '20'  # 指定 Node.js 版本
           cache: 'pnpm'       # 缓存 pnpm 依赖
 
       - name: Install pnpm
